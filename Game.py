@@ -232,13 +232,16 @@ def valid(bo, num, pos):
 
 
 def redraw_window(win, board, _time, strikes):
+    w, h = win.get_width(), win.get_height()
+    x_offset, y_offset = 20, 0
+
     win.fill((255, 255, 255))
     # Draw time
     text = fnt.render("Time: " + format_time(_time), True, (0, 0, 0))
-    win.blit(text, (540 - 160, 560))
+    win.blit(text, (w - text.get_width() - x_offset, h - text.get_height() - y_offset))
     # Draw Strikes
     text = fnt.render("X " * strikes, True, (255, 0, 0))
-    win.blit(text, (20, 560))
+    win.blit(text, (x_offset, h - text.get_height() - y_offset))
     # Draw grid and board
     board.draw()
 
@@ -253,9 +256,9 @@ def format_time(secs):
 
 
 def main():
-    win = pygame.display.set_mode((540, 600))
+    win = pygame.display.set_mode((560, 620))
     pygame.display.set_caption("Sudoku")
-    board = Grid(9, 9, 540, 540, win)
+    board = Grid(9, 9, 560, 560, win)
     key = None
     run = True
     start = time.time()
